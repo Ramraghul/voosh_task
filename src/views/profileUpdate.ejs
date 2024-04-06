@@ -1,0 +1,88 @@
+<!-- profileUpdate.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Update</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+
+        .profile-card {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .profile-image {
+            max-width: 200px;
+            border-radius: 50%;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .public-profiles-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mb-4">Update Your Profile</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="<%= user.profile %>" alt="Profile Picture" class="profile-image img-fluid mb-3">
+                <h5 class="text-center">
+                    <%= user.name %>
+                </h5>
+            </div>
+            <div class="col-md-8">
+                <div class="card profile-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Personal Information</h5>
+                        <hr>
+                        <form action="/updateUserProfile" method="POST">
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" class="form-control" id="name" name="name" value="<%= user.name %>">
+                            </div>
+                            <input type="hidden" name="email" value="<%= user.email %>">
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control" id="email" value="<%= user.email %>" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="profileLink">Profile Picture Link:</label>
+                                <input type="text" class="form-control" id="profileLink" name="profileLink"
+                                    value="<%= user.profile %>">
+                            </div>
+                            <!-- Dropdown for User Type -->
+                            <div class="form-group">
+                                <label for="userType">User Type:</label>
+                                <select class="form-control" id="userType" name="userType">
+                                    <option value="public" <%= user.isPublic ? 'selected' : '' %>>Public</option>
+                                    <option value="private" <%= !user.isPublic ? 'selected' : '' %>>Private</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3">Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
